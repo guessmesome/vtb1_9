@@ -1,33 +1,35 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const applyButtons = document.querySelectorAll('.apply-btn');
-    const products = document.querySelectorAll('.product');
-    
-    applyButtons.forEach(button => {
-        const productId = button.getAttribute('data-product');
-        button.href = CONFIG.products[productId];
-        
-        button.addEventListener('click', function(e) {
-            localStorage.setItem('lastClicked', productId);
-        });
-    });
-    
-    if (document.referrer.includes('pxl.leads.su')) {
-        const lastClicked = localStorage.getItem('lastClicked');
-        if (lastClicked) {
-            localStorage.removeItem('lastClicked');
-            if (performance && performance.navigation.type !== 1) {
-                window.location.reload(true);
-            }
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('product-grid');
+
+    if (!config || !config.products) {
+        console.error('Config not found or invalid');
+        return;
     }
-    
-    products.forEach(product => {
-        product.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.02)';
-        });
-        
-        product.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-        });
+
+    // Apply colors from config
+    if (config.colors) {
+        const root = document.documentElement;
+        root.style.setProperty('--primary-color', config.colors.primaryColor);
+        root.style.setProperty('--bg-color', config.colors.bgColor);
+        root.style.setProperty('--card-bg', config.colors.cardBg);
+        root.style.setProperty('--text-secondary', config.colors.textSecondary);
+        root.style.setProperty('--button-hover', config.colors.buttonHover);
+    }
+
+    config.products.forEach(product => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+
+        // Create HTML structure for the card
+        card.innerHTML = `
+            <div class="product-image-container">
+                <img src="${product.image}" alt="${product.title}" class="product-image">
+            </div>
+            <h2 class="product-title">${product.title}</h2>
+            <p class="product-subtitle">${product.subtitle}</p>
+            <a href="${product.url}" class="order-button" target="_blank">Оформить</a>
+        `;
+
+        grid.appendChild(card);
     });
 });

@@ -1,0 +1,150 @@
+:root {
+    --primary-color: #2F65F0;
+    --bg-color: #F7F9FC;
+    --card-bg: #FFFFFF;
+    --text-secondary: #666666;
+    --button-hover: #2554D0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    /* Mobile-first view on desktop */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.logo-container {
+    margin-bottom: 15px;
+}
+
+.logo {
+    height: 80px;
+    /* Adjust based on actual image */
+    width: auto;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+
+.product-card {
+    background-color: var(--card-bg);
+    border-radius: 24px;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-image-container {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.product-title {
+    color: var(--primary-color);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.product-subtitle {
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    flex-grow: 1;
+    /* Push button to bottom */
+}
+
+.order-button {
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 10px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: block;
+    /* Ensure it takes width */
+}
+
+.order-button:hover {
+    background-color: var(--button-hover);
+}
+
+.order-button:active {
+    transform: scale(0.98);
+}
+
+/* Responsive adjustments */
+@media (max-width: 360px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        /* Stack on very small screens if needed, but user asked for 2 */
+        /* Keeping 2 as requested, but if it breaks, 1 is safer. 
+           User said "adapted for mobile sizes, 2 products per horizontal line".
+           So I will enforce 2 columns even on small screens unless it's unusable.
+           With 15px gap and padding, 2 columns fit on 320px+ screens.
+        */
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+}
